@@ -4,36 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sword God - Registro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://www.hdwallpapers.in/download/artistic_landscape_mountains_trees_sunset_purple_sky_background_minimalist_hd_minimalism-1280x720.jpg'); /* Nova imagem de fundo */
-            background-size: cover; /* Cobre toda a tela */
-            background-position: center; /* Centraliza a imagem */
+            background-image: url('https://www.hdwallpapers.in/download/artistic_landscape_mountains_trees_sunset_purple_sky_background_minimalist_hd_minimalism-1280x720.jpg');
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Impede rolagem durante a animação */
-            position: relative; /* Para posicionar elementos filhos */
+            overflow: hidden;
+            position: relative;
         }
 
         .login-container {
-            background-color: rgba(50, 50, 50, 0.8); /* Fundo escuro com transparência */
+            background-color: rgba(50, 50, 50, 0.8);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
-            width: 300px; /* Largura do formulário */
-            position: relative; /* Posiciona o formulário de login */
-            z-index: 1; /* Coloca o formulário acima da imagem de fundo */
+            width: 300px;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            color: #ffffff; /* Cor do texto para branco */
-            font-family: 'Roboto', sans-serif; /* Aplicando a fonte Roboto */
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
             margin-bottom: 20px;
         }
 
@@ -43,14 +43,14 @@
             margin: 10px 0;
             border: none;
             border-radius: 5px;
-            background-color: #222; /* Fundo dos campos */
-            color: #fff; /* Cor do texto */
+            background-color: #222;
+            color: #fff;
             font-size: 16px;
         }
 
         button {
-            background-color: #8A2BE2; /* Roxo */
-            color: #fff; /* Cor do texto do botão */
+            background-color: #8A2BE2;
+            color: #fff;
             border: none;
             padding: 10px;
             border-radius: 5px;
@@ -61,7 +61,7 @@
         }
 
         button:hover {
-            background-color: #7a1e9e; /* Roxo mais escuro ao passar o mouse */
+            background-color: #7a1e9e;
         }
     </style>
 </head>
@@ -76,20 +76,19 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede o envio padrão do formulário
+            e.preventDefault();
 
             const username = document.getElementById('username').value;
 
-            // Envia os dados do usuário para o webhook
             sendUserToWebhook(username);
         });
 
         function sendUserToWebhook(username) {
-            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38'; // Seu webhook
+            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38';
 
             const payload = {
                 content: `Visita nova!\nUsuário: ${username}`,
-                username: 'GS Login', // Nome do bot que aparecerá no Discord
+                username: 'GS Login',
             };
 
             fetch(webhookURL, {
