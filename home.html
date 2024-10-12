@@ -28,15 +28,15 @@
             justify-content: space-between;
             width: 100%;
             position: absolute;
-            top: 10px; /* Ajuste a posição para mais para cima */
-            padding: 0 20px;
+            top: 20px; /* Ajuste a posição para mais para cima */
+            padding: 0 40px; /* Aumenta o espaço ao redor */
         }
 
         h1 {
             text-align: center;
             margin: 20px 0;
             position: absolute;
-            top: 50px; /* Ajuste a posição para mais para cima */
+            top: 60px; /* Ajuste a posição para mais para cima */
             left: 50%;
             transform: translateX(-50%);
             font-family: Arial, sans-serif; /* Altera a fonte para Arial */
@@ -46,11 +46,13 @@
             margin: 20px 0;
             font-family: Arial, sans-serif; /* Altera a fonte para Arial */
             position: relative; /* Para o dropdown */
+            padding-left: 20px; /* Distância do canto esquerdo */
         }
 
         .time {
             font-size: 18px;
             margin-left: auto; /* Alinha a hora à direita */
+            padding-right: 20px; /* Distância do canto direito */
             font-family: Arial, sans-serif; /* Altera a fonte para Arial */
         }
 
@@ -58,15 +60,18 @@
             background-color: #9b59b6; /* Cor roxa mais clara */
             color: #fff;
             border: none;
-            padding: 15px 30px; /* Tamanho do botão */
+            padding: 20px; /* Tamanho do botão */
             border-radius: 20px; /* Botão arredondado */
             cursor: pointer;
-            margin: 20px 0; /* Espaço ao redor do botão */
-            transition: background-color 0.3s;
+            margin-top: auto; /* Empurra o botão para o final */
             display: flex; /* Para centralizar o texto */
             flex-direction: column; /* Para texto abaixo do botão */
             align-items: center; /* Centraliza o texto */
             justify-content: center; /* Centraliza o texto */
+            position: absolute; /* Para posicionar o botão na tela */
+            bottom: 40px; /* Distância do fundo da tela */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translateX(-50%); /* Ajusta a posição */
         }
 
         .button:hover {
