@@ -42,15 +42,6 @@
             z-index: 10; /* Coloca o título acima dos morcegos */
         }
 
-        #visitCount {
-            position: absolute; /* Para posicionar na parte superior */
-            top: 80px; /* Ajusta a posição */
-            left: 50%; /* Centraliza horizontalmente */
-            transform: translateX(-50%); /* Ajusta o deslocamento */
-            font-size: 1.2rem; /* Tamanho do texto */
-            color: black; /* Cor do texto */
-        }
-
         .bat {
             position: absolute;
             width: 30px; /* Tamanho ajustado dos morcegos */
@@ -83,11 +74,8 @@
     <h1 id="message">Bem Vindo ao site oficial da Sword God!</h1>
     <h1 id="swordGodTitle">Sword God</h1> <!-- Mensagem que ficará no topo -->
     <div id="batContainer"></div> <!-- Container para os morcegos -->
-    <div id="visitCount">O site acabou de ser acessado, totalizando 0 visitas!</div> <!-- Contador de visitas -->
 
     <script>
-        let visitCount = 0; // Contador de visitas
-
         function createBat() {
             const bat = document.createElement('img');
             bat.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIhPkDpjqOL_2Cp_rJk9U_dObl2XPek3fKQA&s'; // URL da imagem do morcego
@@ -104,7 +92,6 @@
 
         function changeMessage() {
             const messageElement = document.getElementById('message');
-            const swordGodElement = document.getElementById('swordGodTitle');
             messageElement.style.opacity = '0';
 
             setTimeout(() => {
@@ -128,15 +115,9 @@
             }, 4000); // Tempo para morcegos voarem
         }
 
-        function updateVisitCount() {
-            visitCount++; // Incrementa o contador
-            document.getElementById('visitCount').textContent = `O site acabou de ser acessado, totalizando ${visitCount} visitas!`;
-        }
-
         function showSwordGodTitle() {
             const titleElement = document.getElementById('swordGodTitle');
             titleElement.style.opacity = '1'; // Torna "Sword God" visível
-            updateVisitCount(); // Atualiza o contador de visitas
         }
 
         setInterval(createBat, 500); // Cria morcegos a cada 0.5 segundos
