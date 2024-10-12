@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sword God - Site Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet"> <!-- Fonte Creepster -->
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet"> <!-- Fonte clássica -->
     <style>
         body {
             background-color: #ffffff; /* Fundo branco */
@@ -31,65 +31,45 @@
 
         #swordGodTitle {
             position: absolute; /* Para posicionar no topo */
-            top: 20px; /* Ajusta a posição para o topo */
+            top: 50%; /* Ajusta a posição para o meio da tela */
             left: 50%; /* Centraliza horizontalmente */
-            transform: translateX(-50%); /* Ajusta o deslocamento */
-            font-size: 2.8rem; /* Tamanho da fonte aumentado */
+            transform: translate(-50%, -50%); /* Ajusta o deslocamento */
+            font-size: 3rem; /* Tamanho da fonte */
             color: black; /* Cor do texto */
             opacity: 0; /* Inicialmente invisível */
             transition: opacity 1s ease-in-out; /* Efeito de transição */
-            font-family: 'Creepster', cursive; /* Fonte creepy */
-            z-index: 10; /* Coloca o título acima dos morcegos */
+            font-family: 'Times New Roman', serif; /* Fonte clássica */
+            z-index: 10; /* Coloca o título acima da animação */
         }
 
-        .bat {
-            position: absolute;
-            width: 30px; /* Tamanho ajustado dos morcegos */
-            opacity: 1;
-            pointer-events: none; /* Não interage com eventos do mouse */
+        #batImage {
+            position: absolute; /* Para posicionar a imagem do morcego */
+            bottom: -200px; /* Começa fora da tela */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translateX(-50%); /* Ajusta o deslocamento */
+            width: 100px; /* Tamanho inicial do morcego */
+            opacity: 1; /* Visível inicialmente */
+            animation: flyIn 1.5s forwards; /* Animação de crescimento */
+            z-index: 5; /* Para que fique abaixo do título */
         }
 
-        @keyframes fly {
-            from {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
+        @keyframes flyIn {
+            0% {
+                transform: translate(-50%, 0) scale(0.1); /* Começa pequeno */
             }
-            to {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
+            100% {
+                transform: translate(-50%, 0) scale(1); /* Cresce até o tamanho normal */
+                opacity: 0; /* Depois some */
             }
-        }
-
-        #batContainer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Não interage com eventos do mouse */
         }
     </style>
 </head>
 <body>
     <h1 id="message">Bem Vindo ao site oficial da Sword God!</h1>
     <h1 id="swordGodTitle">Sword God</h1> <!-- Mensagem que ficará no topo -->
-    <div id="batContainer"></div> <!-- Container para os morcegos -->
+    <img id="batImage" src="https://storage.needpix.com/rsynced_images/bat-36252_1280.png" alt="Morcego" /> <!-- Imagem do morcego -->
 
     <script>
-        function createBat() {
-            const bat = document.createElement('img');
-            bat.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIhPkDpjqOL_2Cp_rJk9U_dObl2XPek3fKQA&s'; // URL da imagem do morcego
-            bat.classList.add('bat');
-            bat.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
-            bat.style.animation = `fly ${Math.random() * 2 + 3}s linear forwards`; // Duração aleatória
-            bat.style.top = '100vh'; // Começa abaixo da tela
-            document.getElementById('batContainer').appendChild(bat);
-
-            setTimeout(() => {
-                bat.remove(); // Remove o morcego após a animação
-            }, 5000); // Tempo maior que a animação
-        }
-
         function changeMessage() {
             const messageElement = document.getElementById('message');
             messageElement.style.opacity = '0';
@@ -101,18 +81,17 @@
 
             setTimeout(() => {
                 messageElement.style.opacity = '0'; // Faz "O site está carregando..." desaparecer
-                flyBats(); // Inicia a animação dos morcegos
-            }, 2000); // Espera 2 segundos para mostrar morcegos
+                showBatImage(); // Mostra a imagem do morcego
+            }, 2000); // Espera 2 segundos para mostrar a imagem
         }
 
-        function flyBats() {
-            const batCount = 20; // Aumenta o número de morcegos
-            for (let i = 0; i < batCount; i++) {
-                createBat();
-            }
+        function showBatImage() {
+            const batImageElement = document.getElementById('batImage');
+
             setTimeout(() => {
-                showSwordGodTitle(); // Exibe "Sword God" após morcegos voarem
-            }, 4000); // Tempo para morcegos voarem
+                batImageElement.style.opacity = '0'; // Faz a imagem do morcego desaparecer
+                showSwordGodTitle(); // Exibe "Sword God" após morcego sumir
+            }, 1500); // Tempo que a imagem do morcego aparece antes de desaparecer
         }
 
         function showSwordGodTitle() {
@@ -120,7 +99,6 @@
             titleElement.style.opacity = '1'; // Torna "Sword God" visível
         }
 
-        setInterval(createBat, 500); // Cria morcegos a cada 0.5 segundos
         setTimeout(changeMessage, 1000); // Inicia a troca de mensagem após 1 segundo
     </script>
 </body>
