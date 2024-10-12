@@ -53,72 +53,54 @@
         }
 
         .button-container {
-            margin-top: auto; /* Coloca os botões na parte inferior */
             display: flex; /* Para permitir alinhamento horizontal */
-            justify-content: center; /* Centraliza os botões horizontalmente */
-            width: 100%;
-            padding: 20px 0; /* Espaçamento ao redor dos botões */
+            justify-content: flex-start; /* Alinha os botões à esquerda */
+            position: absolute; /* Permite fixar os botões */
+            bottom: 20px; /* Distância do fundo */
+            left: 20px; /* Distância do lado esquerdo */
+            gap: 20px; /* Espaçamento entre botões */
         }
 
         .button {
             background-color: #7A1E9E; /* Cor do botão roxo */
             color: #fff;
             border: none;
-            padding: 20px 60px; /* Tamanho do botão aumentado */
-            border-radius: 10px; /* Botão com menos arredondamento */
+            padding: 15px; /* Tamanho do botão */
+            border-radius: 8px; /* Botão com menos arredondamento */
             cursor: pointer;
-            margin: 10px; /* Espaçamento entre botões */
             transition: background-color 0.3s;
-            font-size: 20px; /* Tamanho da fonte do botão */
-            display: inline-block; /* Permite que os botões fiquem lado a lado */
+            font-size: 20px; /* Tamanho do texto do botão */
+            width: 150px; /* Largura do botão */
+            text-align: center; /* Centraliza o texto do botão */
+            display: flex;
+            flex-direction: column; /* Para empilhar ícone e texto verticalmente */
+            align-items: center; /* Centraliza o conteúdo do botão */
         }
 
-        .button:hover {
-            background-color: #8A2BE2; /* Cor do botão ao passar o mouse */
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
+        .button img {
+            width: 24px; /* Tamanho do ícone */
+            height: 24px; /* Tamanho do ícone */
+            margin-bottom: 5px; /* Espaçamento entre ícone e texto */
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="greeting dropdown">
-            <span id="usernameDisplay">Olá, </span>
-            <div class="dropdown-content">
-                <a href="#" id="logout">Sair</a>
-            </div>
-        </div>
+        <div class="greeting" id="greeting"></div>
         <div class="time" id="time"></div>
     </div>
 
     <h1>Sword God</h1>
 
     <div class="button-container">
-        <button class="button">Teste</button>
-        <button class="button">Teste</button>
+        <button class="button">
+            <img src="https://us.123rf.com/450wm/asmati/asmati1706/asmati170606330/80932226-door-exit-sign-vector-white-icon-with-soft-shadow-on-transparent-background.jpg" alt="Ícone Sair">
+            Teste
+        </button>
+        <button class="button">
+            <img src="https://us.123rf.com/450wm/asmati/asmati1706/asmati170606330/80932226-door-exit-sign-vector-white-icon-with-soft-shadow-on-transparent-background.jpg" alt="Ícone Sair">
+            Teste
+        </button>
     </div>
 
     <script>
@@ -132,15 +114,10 @@
             if (!username) {
                 window.location.href = '404.html'; // Redireciona se não estiver logado
             } else {
-                document.getElementById('usernameDisplay').innerText += username; // Adiciona o nome de usuário
+                document.getElementById('greeting').innerText = `Olá, ${username}`;
                 updateTime(); // Chama a função para definir a hora no carregamento
 
                 setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
-
-                document.getElementById('logout').addEventListener('click', function() {
-                    localStorage.removeItem('username'); // Remove o nome de usuário
-                    window.location.href = 'index.html'; // Redireciona para a página de login
-                });
             }
         };
     </script>
