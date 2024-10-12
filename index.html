@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sword God - Site Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet"> <!-- Fonte Creepster -->
     <style>
         body {
             background-color: #ffffff; /* Fundo branco */
@@ -32,10 +33,11 @@
             top: 20px; /* Distância do topo */
             left: 50%; /* Centraliza horizontalmente */
             transform: translateX(-50%); /* Ajusta o deslocamento */
-            font-size: 3rem; /* Tamanho da fonte */
+            font-size: 2.2rem; /* Tamanho da fonte reduzido */
             color: black; /* Cor do texto */
             opacity: 0; /* Inicialmente invisível */
             transition: opacity 1s ease-in-out; /* Efeito de transição */
+            font-family: 'Creepster', cursive; /* Fonte creepy */
         }
     </style>
 </head>
@@ -46,6 +48,7 @@
     <script>
         function changeMessage() {
             const messageElement = document.getElementById('message');
+            const swordGodElement = document.getElementById('swordGodTitle');
             messageElement.style.opacity = '0';
 
             setTimeout(() => {
@@ -55,7 +58,8 @@
             }, 1000); // Espera 1 segundo antes de exibir a nova mensagem
 
             setTimeout(() => {
-                showSwordGodTitle(); // Exibe "Sword God" após a segunda mensagem
+                messageElement.style.opacity = '0'; // Faz "O site está carregando..." desaparecer
+                showSwordGodTitle(); // Exibe "Sword God"
             }, 2000); // Espera 2 segundos para mostrar "Sword God"
         }
 
