@@ -1,3 +1,0 @@
-# SwordGods.github.io
-
-testttt
