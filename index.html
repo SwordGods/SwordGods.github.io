@@ -6,7 +6,9 @@
     <title>Sword God - Login</title>
     <style>
         body {
-            background-color: #000; /* Fundo preto */
+            background-image: url('https://i.pinimg.com/originals/24/26/88/242688b4e8714f0d6639af1b3a75480e.jpg'); /* Nova imagem de fundo */
+            background-size: cover; /* Cobre toda a tela */
+            background-position: center; /* Centraliza a imagem */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,10 +26,8 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
             width: 300px; /* Largura do formulário */
-            position: absolute; /* Posiciona o formulário de login */
-            bottom: -200px; /* Começa fora da tela */
-            transition: bottom 0.5s ease; /* Transição suave ao aparecer */
-            z-index: 1; /* Coloca o formulário acima da animação */
+            position: relative; /* Posiciona o formulário de login */
+            z-index: 1; /* Coloca o formulário acima da imagem de fundo */
         }
 
         h1 {
@@ -61,68 +61,9 @@
         button:hover {
             background-color: #7a1e9e; /* Roxo mais escuro ao passar o mouse */
         }
-
-        /* Estilo para a tela de carregamento */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 24px;
-            z-index: 2; /* Coloca a tela de carregamento acima de tudo */
-            opacity: 0; /* Começa invisível */
-            transition: opacity 0.5s; /* Animação de transição */
-        }
-
-        .bat-animation {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background-image: url('https://storage.needpix.com/rsynced_images/bat-36252_1280.png'); /* Imagem de morcego */
-            background-size: cover; /* Cobre toda a tela */
-            top: 0;
-            left: 0;
-            opacity: 0; /* Começa invisível */
-            z-index: 3; /* Acima de tudo */
-            animation: fly-in 1.5s forwards; /* Animação de entrada */
-        }
-
-        @keyframes fly-in {
-            0% {
-                transform: scale(0); /* Começa pequeno */
-                opacity: 1; /* Totalmente visível */
-            }
-            100% {
-                transform: scale(1); /* Escala normal */
-                opacity: 1; /* Totalmente visível */
-            }
-        }
-
-        /* Estilo para o título "Sword God" */
-        .sword-god-title {
-            position: fixed;
-            top: 10%; /* Parte superior da tela */
-            left: 50%; /* Centralizado horizontalmente */
-            transform: translateX(-50%); /* Centraliza corretamente */
-            font-size: 3rem; /* Tamanho do texto */
-            color: #8A2BE2; /* Roxo */
-            z-index: 4; /* Acima de tudo */
-            opacity: 0; /* Começa invisível */
-            transition: opacity 1s; /* Transição de opacidade */
-        }
     </style>
 </head>
 <body>
-    <div class="loading-screen" id="loadingScreen">O site está carregando...</div>
-    <div class="bat-animation" id="batAnimation"></div>
-    <h1 class="sword-god-title" id="swordGodTitle">Sword God</h1>
-
     <div class="login-container" id="loginContainer">
         <h1>Sword God</h1>
         <form id="loginForm">
@@ -133,34 +74,6 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const batAnimation = document.getElementById('batAnimation');
-            const swordGodTitle = document.getElementById('swordGodTitle');
-            const loginContainer = document.getElementById('loginContainer');
-
-            // Exibir tela de carregamento
-            loadingScreen.style.opacity = '1';
-
-            // Remover tela de carregamento após 1 segundo
-            setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none'; // Esconde a tela de carregamento
-                    batAnimation.style.opacity = '1'; // Exibe animação de morcego
-                }, 500); // Tempo de espera para desaparecer
-            }, 1000); // 1 segundo
-
-            // Remover morcegos e exibir o título após a animação
-            setTimeout(() => {
-                batAnimation.style.opacity = '0'; // Esconde a animação de morcego
-                swordGodTitle.style.opacity = '1'; // Exibe o título
-
-                // Exibir o formulário de login suavemente
-                loginContainer.style.bottom = '50%'; // Faz o formulário descer até o meio
-            }, 1500); // Tempo para morcego cobrir a tela
-        });
-
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Impede o envio padrão do formulário
 
