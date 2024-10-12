@@ -13,13 +13,13 @@
             color: white;
             font-family: 'Times New Roman', Times, serif;
             margin: 0;
-            padding: 20px;
+            padding: 0; /* Remove padding */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Alinha os itens ao topo */
             height: 100vh;
-            position: relative; /* Para o posicionamento absoluto dos elementos */
+            overflow: hidden; /* Impede o scroll */
         }
 
         .header {
@@ -27,7 +27,7 @@
             justify-content: space-between;
             width: 100%;
             position: absolute;
-            top: 20px;
+            top: 10px; /* Ajuste a posição para mais para cima */
             padding: 0 20px;
         }
 
@@ -35,18 +35,21 @@
             text-align: center;
             margin: 20px 0;
             position: absolute;
-            top: 10px;
+            top: 50px; /* Ajuste a posição para mais para cima */
             left: 50%;
             transform: translateX(-50%);
+            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
         }
 
         .greeting {
             margin: 20px 0;
+            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
         }
 
         .time {
             font-size: 18px;
             margin-left: auto; /* Alinha a hora à direita */
+            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
         }
 
         .button {
