@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sword God - Registro</title>
+    <title>Sword God - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -33,9 +33,8 @@
 
         h1 {
             color: #ffffff;
-            font-family: 'Times New Roman', Times, serif; /* Fonte atualizada para Times New Roman */
+            font-family: 'Roboto', sans-serif;
             margin-bottom: 20px;
-            font-size: 32px; /* Aumentei o tamanho da fonte para mais destaque */
         }
 
         input[type="text"] {
@@ -78,13 +77,9 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             const username = document.getElementById('username').value;
 
-            // Armazenar o nome do usuário no localStorage
-            localStorage.setItem('username', username);
-
-            // Enviar o usuário para o webhook
+            localStorage.setItem('username', username); // Armazena o nome de usuário
             sendUserToWebhook(username);
         });
 
@@ -105,7 +100,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert(`Bem vindo, ${username}!`);
+                    window.location.href = 'home.html'; // Redireciona para a página inicial
                 } else {
                     alert('Erro ao registrar o usuário.');
                 }
