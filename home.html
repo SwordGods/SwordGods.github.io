@@ -18,7 +18,7 @@
             overflow: hidden; /* Impede a rolagem */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start; /* Alinhamento à esquerda */
             justify-content: flex-start; /* Alinhamento no topo */
         }
 
@@ -51,40 +51,63 @@
             font-size: 18px; /* Tamanho do texto */
         }
 
-        .exit-icon {
-            width: 14px; /* Tamanho do ícone */
-            cursor: pointer; /* Cursor de ponteiro ao passar sobre o ícone */
-        }
-
         .button-container {
-            margin-top: 150px; /* Espaçamento acima dos botões */
+            margin-top: 100px; /* Espaçamento acima dos botões */
             display: flex; /* Para permitir alinhamento horizontal */
             justify-content: center; /* Centraliza os botões horizontalmente */
+            width: 100%;
         }
 
         .button {
             background-color: #7A1E9E; /* Cor do botão roxo */
             color: #fff;
             border: none;
-            padding: 15px 30px; /* Tamanho do botão */
-            border-radius: 15px; /* Botão arredondado */
+            padding: 20px 40px; /* Tamanho do botão */
+            border-radius: 10px; /* Botão com menos arredondamento */
             cursor: pointer;
             margin: 10px; /* Espaçamento entre botões */
             transition: background-color 0.3s;
-            font-size: 16px; /* Tamanho da fonte do botão */
+            font-size: 20px; /* Tamanho da fonte do botão */
             display: inline-block; /* Permite que os botões fiquem lado a lado */
         }
 
         .button:hover {
             background-color: #8A2BE2; /* Cor do botão ao passar o mouse */
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="greeting">
-            <span>Olá,</span>
-            <img src="https://us.123rf.com/450wm/asmati/asmati1706/asmati170606330/80932226-door-exit-sign-vector-white-icon-with-soft-shadow-on-transparent-background.jpg" alt="Sair" class="exit-icon" id="logout" title="Sair">
+        <div class="greeting dropdown">
+            <span id="usernameDisplay">Olá, </span>
+            <div class="dropdown-content">
+                <a href="#" id="logout">Sair</a>
+            </div>
         </div>
         <div class="time" id="time"></div>
     </div>
@@ -107,6 +130,7 @@
             if (!username) {
                 window.location.href = '404.html'; // Redireciona se não estiver logado
             } else {
+                document.getElementById('usernameDisplay').innerText += username; // Adiciona o nome de usuário
                 updateTime(); // Chama a função para definir a hora no carregamento
 
                 setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
