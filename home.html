@@ -20,6 +20,7 @@
             justify-content: flex-start; /* Alinha os itens ao topo */
             height: 100vh;
             overflow: hidden; /* Impede o scroll */
+            position: relative; /* Para garantir que o dropdown funcione corretamente */
         }
 
         .header {
@@ -44,6 +45,7 @@
         .greeting {
             margin: 20px 0;
             font-family: Arial, sans-serif; /* Altera a fonte para Arial */
+            position: relative; /* Para o dropdown */
         }
 
         .time {
@@ -79,6 +81,13 @@
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease; /* Fade effect */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1; /* Mostra o dropdown com fade in */
         }
 
         .dropdown-content a {
@@ -87,22 +96,12 @@
             text-decoration: none;
             display: block;
         }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="greeting" id="greeting"></div>
         <div class="time" id="time"></div>
-        <div class="dropdown">
-            <span id="usernameDisplay"></span>
-            <div class="dropdown-content">
-                <a href="#" id="logout">Sair</a>
-            </div>
-        </div>
     </div>
 
     <h1>Sword God</h1>
@@ -117,10 +116,21 @@
         window.onload = function() {
             const username = localStorage.getItem('username');
             if (!username) {
-                window.location.href = 'index.html'; // Redireciona se não estiver logado
+                window.location.href = '404.html'; // Redireciona para a página 404 se não houver nome de usuário
             } else {
-                document.getElementById('usernameDisplay').innerText = username;
-                document.getElementById('greeting').innerText = `Olá, ${username}`;
+                const greetingText = document.createElement('span');
+                greetingText.innerText = `Olá, ${username} `;
+                const dropdown = document.createElement('div');
+                dropdown.className = 'dropdown';
+                dropdown.innerHTML = `<span>▼</span>`; // Ícone de dropdown
+
+                const dropdownContent = document.createElement('div');
+                dropdownContent.className = 'dropdown-content';
+                dropdownContent.innerHTML = `<a href="#" id="logout">Sair</a>`;
+                dropdown.appendChild(dropdownContent);
+                document.getElementById('greeting').appendChild(greetingText);
+                document.getElementById('greeting').appendChild(dropdown);
+
                 updateTime(); // Chama a função para definir a hora no carregamento
 
                 setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
