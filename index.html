@@ -13,6 +13,8 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            flex-direction: column; /* Permite empilhar mensagens */
+            position: relative; /* Para posicionar o título "Sword God" */
         }
 
         h1 {
@@ -24,30 +26,39 @@
             opacity: 1;
             transition: opacity 1s ease-in-out; /* Efeito de transição */
         }
+
+        #swordGodTitle {
+            position: absolute; /* Para posicionar no topo */
+            top: 20px; /* Distância do topo */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translateX(-50%); /* Ajusta o deslocamento */
+            font-size: 3rem; /* Tamanho da fonte */
+            color: black; /* Cor do texto */
+            opacity: 0; /* Inicialmente invisível */
+            transition: opacity 1s ease-in-out; /* Efeito de transição */
+        }
     </style>
 </head>
 <body>
     <h1 id="message">Bem Vindo ao site oficial da Sword God!</h1>
+    <h1 id="swordGodTitle">Sword God</h1> <!-- Mensagem que ficará no topo -->
 
     <script>
-        // Função para trocar a mensagem com fade
         function changeMessage() {
             const messageElement = document.getElementById('message');
-            
-            // Fade out da mensagem atual
             messageElement.style.opacity = '0';
 
-            // Espera o tempo do fade-out (1 segundo) e troca a mensagem
             setTimeout(() => {
                 messageElement.textContent = 'O site está carregando...';
-                messageElement.style.opacity = '1'; // Fade in da nova mensagem
-
-                // Envia o webhook quando a nova mensagem aparece
+                messageElement.style.opacity = '1';
                 sendDiscordWebhook();
-            }, 1000); // Espera 2 segundos antes de exibir a nova mensagem
+            }, 1000); // Espera 1 segundo antes de exibir a nova mensagem
+
+            setTimeout(() => {
+                showSwordGodTitle(); // Exibe "Sword God" após a segunda mensagem
+            }, 2000); // Espera 2 segundos para mostrar "Sword God"
         }
 
-        // Função para enviar um webhook ao Discord
         function sendDiscordWebhook() {
             const webhookUrl = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38';
             const messageContent = {
@@ -71,8 +82,12 @@
             .catch(error => console.error('Erro de rede ao enviar webhook:', error));
         }
 
-        // Inicia a troca de mensagem após 2 segundos
-        setTimeout(changeMessage, 1000);
+        function showSwordGodTitle() {
+            const titleElement = document.getElementById('swordGodTitle');
+            titleElement.style.opacity = '1'; // Torna "Sword God" visível
+        }
+
+        setTimeout(changeMessage, 1000); // Inicia a troca de mensagem após 1 segundo
     </script>
 </body>
 </html>
