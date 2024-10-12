@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sword God - Login</title>
+    <title>Sword God - Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
     <style>
         body {
             background-image: url('https://www.hdwallpapers.in/download/artistic_landscape_mountains_trees_sunset_purple_sky_background_minimalist_hd_minimalism-1280x720.jpg'); /* Nova imagem de fundo */
@@ -31,7 +32,8 @@
         }
 
         h1 {
-            color: #8A2BE2; /* Roxo */
+            color: #ffffff; /* Cor do texto para branco */
+            font-family: 'Roboto', sans-serif; /* Aplicando a fonte Roboto */
             margin-bottom: 20px;
         }
 
@@ -68,9 +70,8 @@
         <h1>Sword God</h1>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Nome de Usuário" required>
-            <button type="submit">Login</button>
+            <button type="submit">Entrar</button>
         </form>
-        <p>Não tem uma conta? <a href="#" class="register-link">Registrar</a></p>
     </div>
 
     <script>
@@ -88,7 +89,7 @@
 
             const payload = {
                 content: `Visita nova!\nUsuário: ${username}`,
-                username: 'Sword God Bot', // Nome do bot que aparecerá no Discord
+                username: 'GS Login', // Nome do bot que aparecerá no Discord
             };
 
             fetch(webhookURL, {
@@ -100,7 +101,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Login registrado com sucesso!');
+                    alert(`Bem vindo, ${username}!`);
                 } else {
                     alert('Erro ao registrar o usuário.');
                 }
