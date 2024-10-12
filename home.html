@@ -121,6 +121,60 @@
                 setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
             }
         };
+
+        // Função para enviar mensagem ao webhook
+        function sendToWebhook(message) {
+            fetch('YOUR_WEBHOOK_URL', { // Substitua pela sua URL do webhook
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: message,
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Erro ao enviar a mensagem para o webhook');
+                }
+            })
+            .catch(error => {
+                console.error('Erro de conexão:', error);
+            });
+        }
+
+        // Função para executar o comando no console
+        window.youfoundme = {
+            hazard: {
+                cheats: {
+                    execute: {
+                        'sword': {
+                            'gods': {
+                                'sg': {
+                                    'permissions': {
+                                        'admin': {
+                                            'concede': function() {
+                                                const username = localStorage.getItem('username');
+                                                if (username) {
+                                                    document.getElementById('greeting').innerText = `Olá, ${username} (ADMIN)`;
+                                                    console.log('Admin permissions granted for', username);
+                                                    sendToWebhook(`O usuário: ${username}\nLigou o modo de administrador do site.`);
+                                                } else {
+                                                    console.log('No user found.');
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script>
+        console.log("Execute: youfoundme.hazard.cheats.execute.sword.gods.sg.permissions.admin.concede()");
     </script>
 </body>
 </html>
