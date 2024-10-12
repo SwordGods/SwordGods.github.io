@@ -31,15 +31,24 @@
 
         #swordGodTitle {
             position: absolute; /* Para posicionar no topo */
-            top: 50%; /* Centraliza verticalmente */
+            top: 20px; /* Ajusta a posição para o topo */
             left: 50%; /* Centraliza horizontalmente */
-            transform: translate(-50%, -50%); /* Ajusta o deslocamento */
+            transform: translateX(-50%); /* Ajusta o deslocamento */
             font-size: 2.8rem; /* Tamanho da fonte aumentado */
             color: black; /* Cor do texto */
             opacity: 0; /* Inicialmente invisível */
             transition: opacity 1s ease-in-out; /* Efeito de transição */
             font-family: 'Creepster', cursive; /* Fonte creepy */
             z-index: 10; /* Coloca o título acima dos morcegos */
+        }
+
+        #visitCount {
+            position: absolute; /* Para posicionar na parte superior */
+            top: 80px; /* Ajusta a posição */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translateX(-50%); /* Ajusta o deslocamento */
+            font-size: 1.2rem; /* Tamanho do texto */
+            color: black; /* Cor do texto */
         }
 
         .bat {
@@ -74,8 +83,11 @@
     <h1 id="message">Bem Vindo ao site oficial da Sword God!</h1>
     <h1 id="swordGodTitle">Sword God</h1> <!-- Mensagem que ficará no topo -->
     <div id="batContainer"></div> <!-- Container para os morcegos -->
+    <div id="visitCount">O site acabou de ser acessado, totalizando 0 visitas!</div> <!-- Contador de visitas -->
 
     <script>
+        let visitCount = 0; // Contador de visitas
+
         function createBat() {
             const bat = document.createElement('img');
             bat.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIhPkDpjqOL_2Cp_rJk9U_dObl2XPek3fKQA&s'; // URL da imagem do morcego
@@ -98,7 +110,6 @@
             setTimeout(() => {
                 messageElement.textContent = 'O site está carregando...';
                 messageElement.style.opacity = '1';
-                sendDiscordWebhook();
             }, 1000); // Espera 1 segundo antes de exibir a nova mensagem
 
             setTimeout(() => {
@@ -108,7 +119,7 @@
         }
 
         function flyBats() {
-            const batCount = 10; // Número de morcegos a serem criados
+            const batCount = 20; // Aumenta o número de morcegos
             for (let i = 0; i < batCount; i++) {
                 createBat();
             }
@@ -117,32 +128,15 @@
             }, 4000); // Tempo para morcegos voarem
         }
 
-        function sendDiscordWebhook() {
-            const webhookUrl = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38';
-            const messageContent = {
-                content: 'O site acabou de receber uma visita!'
-            };
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(messageContent)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Webhook enviado com sucesso!');
-                } else {
-                    console.error('Erro ao enviar webhook:', response.statusText);
-                }
-            })
-            .catch(error => console.error('Erro de rede ao enviar webhook:', error));
+        function updateVisitCount() {
+            visitCount++; // Incrementa o contador
+            document.getElementById('visitCount').textContent = `O site acabou de ser acessado, totalizando ${visitCount} visitas!`;
         }
 
         function showSwordGodTitle() {
             const titleElement = document.getElementById('swordGodTitle');
             titleElement.style.opacity = '1'; // Torna "Sword God" visível
+            updateVisitCount(); // Atualiza o contador de visitas
         }
 
         setInterval(createBat, 500); // Cria morcegos a cada 0.5 segundos
