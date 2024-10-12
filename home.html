@@ -19,6 +19,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            position: relative; /* Para o posicionamento absoluto dos elementos */
         }
 
         .header {
@@ -44,8 +45,8 @@
         }
 
         .time {
-            position: absolute;
-            right: 20px;
+            font-size: 18px;
+            margin-left: auto; /* Alinha a hora à direita */
         }
 
         .button {
@@ -105,6 +106,11 @@
     <button class="button">Teste</button>
 
     <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('time').innerText = now.toLocaleTimeString(); // Atualiza a hora
+        }
+
         window.onload = function() {
             const username = localStorage.getItem('username');
             if (!username) {
@@ -112,7 +118,9 @@
             } else {
                 document.getElementById('usernameDisplay').innerText = username;
                 document.getElementById('greeting').innerText = `Olá, ${username}`;
-                document.getElementById('time').innerText = new Date().toLocaleTimeString();
+                updateTime(); // Chama a função para definir a hora no carregamento
+
+                setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
 
                 document.getElementById('logout').addEventListener('click', function() {
                     localStorage.removeItem('username'); // Remove o nome de usuário
