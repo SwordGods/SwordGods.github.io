@@ -55,18 +55,28 @@
         }
 
         .button {
-            background-color: #8A2BE2;
+            background-color: #9b59b6; /* Cor roxa mais clara */
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 15px 30px; /* Tamanho do botão */
+            border-radius: 20px; /* Botão arredondado */
             cursor: pointer;
-            margin: 10px;
+            margin: 20px 0; /* Espaço ao redor do botão */
             transition: background-color 0.3s;
+            display: flex; /* Para centralizar o texto */
+            flex-direction: column; /* Para texto abaixo do botão */
+            align-items: center; /* Centraliza o texto */
+            justify-content: center; /* Centraliza o texto */
         }
 
         .button:hover {
-            background-color: #7a1e9e;
+            background-color: #8e44ad; /* Tom mais escuro ao passar o mouse */
+        }
+
+        .button-text {
+            margin-top: 10px; /* Espaço entre o botão e o texto */
+            font-size: 18px; /* Tamanho da fonte do texto */
+            text-align: center;
         }
 
         .dropdown {
@@ -105,7 +115,12 @@
     </div>
 
     <h1>Sword God</h1>
-    <button class="button">Teste</button>
+    
+    <!-- Botão Teste -->
+    <button class="button">
+        Teste
+        <span class="button-text">Clique aqui</span>
+    </button>
 
     <script>
         function updateTime() {
