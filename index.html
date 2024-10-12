@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sword God - Login</title>
+    <title>Sword God - Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #000;
+            background-image: url('https://wallpaperboat.com/wp-content/uploads/2020/10/23/57871/purple-sky-22.jpg');
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url('https://images.pexels.com/photos/1625527/pexels-photo-1625527.jpeg');
-            background-size: cover;
-            background-position: center;
+            overflow: hidden;
+            position: relative;
         }
 
         .login-container {
@@ -25,15 +27,17 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
             width: 300px;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            color: #8A2BE2;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
             margin-bottom: 20px;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -42,10 +46,6 @@
             background-color: #222;
             color: #fff;
             font-size: 16px;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px;
         }
 
         button {
@@ -63,27 +63,15 @@
         button:hover {
             background-color: #7a1e9e;
         }
-
-        .register-link {
-            margin-top: 15px;
-            color: #8A2BE2;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="login-container" id="loginContainer">
         <h1>Sword God</h1>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <label>
-                <input type="checkbox"> Lembrar de mim
-            </label>
-            <p><a href="#" class="register-link">Esqueceu a senha?</a></p>
-            <button type="submit">Login</button>
+            <input type="text" id="username" placeholder="Nome de Usuário" required>
+            <button type="submit">Entrar</button>
         </form>
-        <p>Não tem uma conta? <a href="#" class="register-link">Registrar</a></p>
     </div>
 
     <script>
@@ -91,45 +79,39 @@
             e.preventDefault();
 
             const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
 
             // Armazenar o nome do usuário no localStorage
             localStorage.setItem('username', username);
 
-            // Envia os dados do usuário para o webhook
-            sendUserToWebhook(username, password);
+            // Enviar o usuário para o webhook
+            sendUserToWebhook(username);
         });
 
-        function sendUserToWebhook(username, password) {
+        function sendUserToWebhook(username) {
             const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38';
+
+            const payload = {
+                content: `Visita nova!\nUsuário: ${username}`,
+                username: 'GS Login',
+            };
 
             fetch(webhookURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    content: `Novo usuário registrado!\nNome: ${username}\nSenha: ${password}\nDeseja aceitar o login?`
-                })
+                body: JSON.stringify(payload)
             })
             .then(response => {
                 if (response.ok) {
-                    // Simula a resposta do bot com reações
-                    askForAcceptance(username);
+                    alert(`Bem vindo, ${username}!`);
                 } else {
                     alert('Erro ao registrar o usuário.');
                 }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
             });
-        }
-
-        function askForAcceptance(username) {
-            const userResponse = confirm(`Novo usuário registrado!\nNome: ${username}\nDeseja aceitar o login?`);
-
-            if (userResponse) {
-                alert('Seu login foi aceito!');
-            } else {
-                window.location.href = '404.html'; // Redireciona para uma página 404
-            }
         }
     </script>
 </body>
