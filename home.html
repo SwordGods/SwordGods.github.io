@@ -11,16 +11,15 @@
             background-size: cover;
             background-position: center;
             color: white;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0; /* Remove padding */
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* Impede a rolagem */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Alinha os itens ao topo */
-            height: 100vh;
-            overflow: hidden; /* Impede o scroll */
-            position: relative; /* Para garantir que o dropdown funcione corretamente */
+            justify-content: center;
         }
 
         .header {
@@ -28,60 +27,46 @@
             justify-content: space-between;
             width: 100%;
             position: absolute;
-            top: 20px; /* Ajuste a posição para mais para cima */
-            padding: 0 40px; /* Aumenta o espaço ao redor */
+            top: 20px;
+            padding: 0 20px;
         }
 
         h1 {
             text-align: center;
-            margin: 20px 0;
+            margin: 0;
             position: absolute;
-            top: 60px; /* Ajuste a posição para mais para cima */
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
+            font-family: 'Times New Roman', Times, serif; /* Fonte do título */
         }
 
         .greeting {
-            margin: 20px 0;
-            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
-            position: relative; /* Para o dropdown */
-            padding-left: 20px; /* Distância do canto esquerdo */
+            margin: 0;
+            padding-left: 20px; /* Distância do lado esquerdo */
+            font-size: 18px; /* Tamanho do texto */
         }
 
         .time {
-            font-size: 18px;
-            margin-left: auto; /* Alinha a hora à direita */
-            padding-right: 20px; /* Distância do canto direito */
-            font-family: Arial, sans-serif; /* Altera a fonte para Arial */
+            padding-right: 20px; /* Distância do lado direito */
+            font-size: 18px; /* Tamanho do texto */
         }
 
         .button {
-            background-color: #9b59b6; /* Cor roxa mais clara */
+            background-color: #7A1E9E; /* Cor do botão roxo */
             color: #fff;
             border: none;
-            padding: 20px; /* Tamanho do botão */
-            border-radius: 20px; /* Botão arredondado */
+            padding: 15px 30px; /* Tamanho do botão */
+            border-radius: 15px; /* Botão arredondado */
             cursor: pointer;
-            margin-top: auto; /* Empurra o botão para o final */
-            display: flex; /* Para centralizar o texto */
-            flex-direction: column; /* Para texto abaixo do botão */
-            align-items: center; /* Centraliza o texto */
-            justify-content: center; /* Centraliza o texto */
-            position: absolute; /* Para posicionar o botão na tela */
-            bottom: 40px; /* Distância do fundo da tela */
-            left: 50%; /* Centraliza horizontalmente */
-            transform: translateX(-50%); /* Ajusta a posição */
+            margin-top: auto; /* Afasta o botão do topo */
+            transition: background-color 0.3s;
+            font-size: 16px; /* Tamanho da fonte do botão */
+            position: relative; /* Para efeito de animação */
         }
 
         .button:hover {
-            background-color: #8e44ad; /* Tom mais escuro ao passar o mouse */
-        }
-
-        .button-text {
-            margin-top: 10px; /* Espaço entre o botão e o texto */
-            font-size: 18px; /* Tamanho da fonte do texto */
-            text-align: center;
+            background-color: #8A2BE2; /* Cor do botão ao passar o mouse */
         }
 
         .dropdown {
@@ -96,13 +81,6 @@
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease; /* Fade effect */
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            opacity: 1; /* Mostra o dropdown com fade in */
         }
 
         .dropdown-content a {
@@ -111,21 +89,26 @@
             text-decoration: none;
             display: block;
         }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="greeting" id="greeting"></div>
         <div class="time" id="time"></div>
+        <div class="dropdown">
+            <span id="usernameDisplay"></span>
+            <div class="dropdown-content">
+                <a href="#" id="logout">Sair</a>
+            </div>
+        </div>
     </div>
 
     <h1>Sword God</h1>
-    
-    <!-- Botão Teste -->
-    <button class="button">
-        Teste
-        <span class="button-text">Clique aqui</span>
-    </button>
+    <button class="button">Teste</button>
 
     <script>
         function updateTime() {
@@ -136,21 +119,10 @@
         window.onload = function() {
             const username = localStorage.getItem('username');
             if (!username) {
-                window.location.href = '404.html'; // Redireciona para a página 404 se não houver nome de usuário
+                window.location.href = '404.html'; // Redireciona se não estiver logado
             } else {
-                const greetingText = document.createElement('span');
-                greetingText.innerText = `Olá, ${username} `;
-                const dropdown = document.createElement('div');
-                dropdown.className = 'dropdown';
-                dropdown.innerHTML = `<span>▼</span>`; // Ícone de dropdown
-
-                const dropdownContent = document.createElement('div');
-                dropdownContent.className = 'dropdown-content';
-                dropdownContent.innerHTML = `<a href="#" id="logout">Sair</a>`;
-                dropdown.appendChild(dropdownContent);
-                document.getElementById('greeting').appendChild(greetingText);
-                document.getElementById('greeting').appendChild(dropdown);
-
+                document.getElementById('usernameDisplay').innerText = username;
+                document.getElementById('greeting').innerText = `Olá, ${username}`;
                 updateTime(); // Chama a função para definir a hora no carregamento
 
                 setInterval(updateTime, 1000); // Atualiza a hora a cada segundo
