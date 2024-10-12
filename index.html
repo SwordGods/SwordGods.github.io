@@ -16,13 +16,14 @@
             font-family: Arial, sans-serif;
             flex-direction: column; /* Permite empilhar mensagens */
             position: relative; /* Para posicionar o título "Sword God" */
+            overflow: hidden; /* Esconde qualquer conteúdo que ultrapasse os limites */
         }
 
         h1 {
             background: linear-gradient(45deg, #000000, #555555);
             -webkit-background-clip: text;
             color: transparent;
-            font-size: 2.5rem;
+            font-size: 2.5rem; /* Tamanho original do título */
             text-align: center;
             opacity: 1;
             transition: opacity 1s ease-in-out; /* Efeito de transição */
@@ -30,22 +31,65 @@
 
         #swordGodTitle {
             position: absolute; /* Para posicionar no topo */
-            top: 20px; /* Distância do topo */
+            top: 50%; /* Centraliza verticalmente */
             left: 50%; /* Centraliza horizontalmente */
-            transform: translateX(-50%); /* Ajusta o deslocamento */
-            font-size: 2.2rem; /* Tamanho da fonte reduzido */
+            transform: translate(-50%, -50%); /* Ajusta o deslocamento */
+            font-size: 2.8rem; /* Tamanho da fonte aumentado */
             color: black; /* Cor do texto */
             opacity: 0; /* Inicialmente invisível */
             transition: opacity 1s ease-in-out; /* Efeito de transição */
             font-family: 'Creepster', cursive; /* Fonte creepy */
+            z-index: 10; /* Coloca o título acima dos morcegos */
+        }
+
+        .bat {
+            position: absolute;
+            width: 30px; /* Tamanho ajustado dos morcegos */
+            opacity: 1;
+            pointer-events: none; /* Não interage com eventos do mouse */
+        }
+
+        @keyframes fly {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        #batContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Não interage com eventos do mouse */
         }
     </style>
 </head>
 <body>
     <h1 id="message">Bem Vindo ao site oficial da Sword God!</h1>
     <h1 id="swordGodTitle">Sword God</h1> <!-- Mensagem que ficará no topo -->
+    <div id="batContainer"></div> <!-- Container para os morcegos -->
 
     <script>
+        function createBat() {
+            const bat = document.createElement('img');
+            bat.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIhPkDpjqOL_2Cp_rJk9U_dObl2XPek3fKQA&s'; // URL da imagem do morcego
+            bat.classList.add('bat');
+            bat.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
+            bat.style.animation = `fly ${Math.random() * 2 + 3}s linear forwards`; // Duração aleatória
+            bat.style.top = '100vh'; // Começa abaixo da tela
+            document.getElementById('batContainer').appendChild(bat);
+
+            setTimeout(() => {
+                bat.remove(); // Remove o morcego após a animação
+            }, 5000); // Tempo maior que a animação
+        }
+
         function changeMessage() {
             const messageElement = document.getElementById('message');
             const swordGodElement = document.getElementById('swordGodTitle');
@@ -59,8 +103,18 @@
 
             setTimeout(() => {
                 messageElement.style.opacity = '0'; // Faz "O site está carregando..." desaparecer
-                showSwordGodTitle(); // Exibe "Sword God"
-            }, 2000); // Espera 2 segundos para mostrar "Sword God"
+                flyBats(); // Inicia a animação dos morcegos
+            }, 2000); // Espera 2 segundos para mostrar morcegos
+        }
+
+        function flyBats() {
+            const batCount = 10; // Número de morcegos a serem criados
+            for (let i = 0; i < batCount; i++) {
+                createBat();
+            }
+            setTimeout(() => {
+                showSwordGodTitle(); // Exibe "Sword God" após morcegos voarem
+            }, 4000); // Tempo para morcegos voarem
         }
 
         function sendDiscordWebhook() {
@@ -91,6 +145,7 @@
             titleElement.style.opacity = '1'; // Torna "Sword God" visível
         }
 
+        setInterval(createBat, 500); // Cria morcegos a cada 0.5 segundos
         setTimeout(changeMessage, 1000); // Inicia a troca de mensagem após 1 segundo
     </script>
 </body>
