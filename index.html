@@ -6,16 +6,16 @@
     <title>Sword God - Login</title>
     <style>
         body {
-            background-color: #000; /* Fundo preto */
+            background-image: url('https://media.discordapp.net/attachments/1288994134522331188/1294713108194918492/a_5f951d36388970cea5f5c534e6f3cb27.gif?ex=670c030b&is=670ab18b&hm=979ddbb96339a6fcdad9973247e784ce67e47919376d9a89e14d5233df003dca&=&width=440&height=247'); /* GIF como fundo */
+            background-size: cover; /* Cobre toda a tela */
+            background-position: center; /* Centraliza a imagem de fundo */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-image: url('https://images.pexels.com/photos/1625527/pexels-photo-1625527.jpeg'); /* Imagem de fundo */
-            background-size: cover; /* Cobre toda a tela */
-            background-position: center; /* Centraliza a imagem */
+            overflow: hidden; /* Impede rolagem durante a animação */
         }
 
         .login-container {
@@ -25,6 +25,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
             width: 300px; /* Largura do formulário */
+            z-index: 1; /* Coloca o formulário acima da animação */
         }
 
         h1 {
@@ -32,8 +33,7 @@
             margin-bottom: 20px;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -42,10 +42,6 @@
             background-color: #222; /* Fundo dos campos */
             color: #fff; /* Cor do texto */
             font-size: 16px;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px;
         }
 
         button {
@@ -64,44 +60,116 @@
             background-color: #7a1e9e; /* Roxo mais escuro ao passar o mouse */
         }
 
-        .register-link {
-            margin-top: 15px;
+        /* Estilo para a tela de carregamento */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+            z-index: 2; /* Coloca a tela de carregamento acima de tudo */
+            opacity: 0; /* Começa invisível */
+            transition: opacity 0.5s; /* Animação de transição */
+        }
+
+        .bat-animation {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://storage.needpix.com/rsynced_images/bat-36252_1280.png'); /* Imagem de morcego */
+            background-size: cover; /* Cobre toda a tela */
+            top: 0;
+            left: 0;
+            opacity: 0; /* Começa invisível */
+            z-index: 3; /* Acima de tudo */
+            animation: fly-in 1.5s forwards; /* Animação de entrada */
+        }
+
+        @keyframes fly-in {
+            0% {
+                transform: scale(0); /* Começa pequeno */
+                opacity: 1; /* Totalmente visível */
+            }
+            100% {
+                transform: scale(1); /* Escala normal */
+                opacity: 1; /* Totalmente visível */
+            }
+        }
+
+        /* Estilo para o título "Sword God" */
+        .sword-god-title {
+            position: fixed;
+            top: 10%; /* Parte superior da tela */
+            left: 50%; /* Centralizado horizontalmente */
+            transform: translateX(-50%); /* Centraliza corretamente */
+            font-size: 3rem; /* Tamanho do texto */
             color: #8A2BE2; /* Roxo */
-            text-decoration: none;
+            z-index: 4; /* Acima de tudo */
+            opacity: 0; /* Começa invisível */
+            transition: opacity 1s; /* Transição de opacidade */
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="loading-screen" id="loadingScreen">O site está carregando...</div>
+    <div class="bat-animation" id="batAnimation"></div>
+    <h1 class="sword-god-title" id="swordGodTitle">Sword God</h1>
+
+    <div class="login-container" id="loginContainer">
         <h1>Sword God</h1>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Nome de Usuário" required>
-            <input type="password" id="password" placeholder="Senha" required>
-            <label>
-                <input type="checkbox"> Lembrar de mim
-            </label>
-            <p><a href="#" class="register-link">Esqueceu a senha?</a></p>
             <button type="submit">Login</button>
         </form>
         <p>Não tem uma conta? <a href="#" class="register-link">Registrar</a></p>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const batAnimation = document.getElementById('batAnimation');
+            const swordGodTitle = document.getElementById('swordGodTitle');
+            const loginContainer = document.getElementById('loginContainer');
+
+            // Exibir tela de carregamento
+            loadingScreen.style.opacity = '1';
+
+            // Remover tela de carregamento após 1 segundo
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none'; // Esconde a tela de carregamento
+                    batAnimation.style.opacity = '1'; // Exibe animação de morcego
+                }, 500); // Tempo de espera para desaparecer
+            }, 1000); // 1 segundo
+
+            // Remover morcegos e exibir o título após a animação
+            setTimeout(() => {
+                batAnimation.style.opacity = '0'; // Esconde a animação de morcego
+                swordGodTitle.style.opacity = '1'; // Exibe o título
+            }, 1500); // Tempo para morcego cobrir a tela
+        });
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Impede o envio padrão do formulário
 
             const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
 
             // Envia os dados do usuário para o webhook
-            sendUserToWebhook(username, password);
+            sendUserToWebhook(username);
         });
 
-        function sendUserToWebhook(username, password) {
-            const webhookURL = 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_WEBHOOK_TOKEN'; // Substitua pelo seu webhook
+        function sendUserToWebhook(username) {
+            const webhookURL = 'https://discord.com/api/webhooks/1294702699161452654/sV4vV0mtEZyB5dXl9xP2ktm2P7hWbsiGAqwgSV3Avscq0e-hcje6ek_Q9UEkd3oGgu38'; // Substitua pelo seu webhook
 
             const payload = {
-                content: `Novo usuário registrado!\nNome: ${username}\nSenha: ${password}\nDeseja aceitar o login?`,
+                content: `Visita nova!\nUsuário: ${username}`,
                 username: 'Sword God Bot', // Nome do bot que aparecerá no Discord
             };
 
@@ -114,13 +182,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    const userResponse = confirm(`Novo usuário registrado!\nNome: ${username}\nDeseja aceitar o login?`);
-
-                    if (userResponse) {
-                        alert('Seu login foi aceito!');
-                    } else {
-                        window.location.href = '404.html'; // Redireciona para uma página 404
-                    }
+                    alert('Login registrado com sucesso!');
                 } else {
                     alert('Erro ao registrar o usuário.');
                 }
